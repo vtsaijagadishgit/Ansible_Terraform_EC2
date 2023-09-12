@@ -1,3 +1,4 @@
-output "CDAAS_public_ip" {
-  value = aws_instance.CDAAS.*.public_ip
+output "CDAAS_instance_ids" {
+  description = "List of instance IDs"
+  value = aws_instance.CDAAS.*.id
 }
