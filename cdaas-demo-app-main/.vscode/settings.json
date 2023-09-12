@@ -1,0 +1,14 @@
+{
+	// set indentation to 2 for yaml, js, json
+	"editor.detectIndentation": false,
+	"[yaml]": {
+			"editor.tabSize": 2
+	},
+	"[javascript]": {
+			"editor.tabSize": 2
+	},
+	"[json]": {
+			"editor.tabSize": 2
+	}
+}
+  

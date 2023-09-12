@@ -1,0 +1,9 @@
+---
+- name: Application testing
+  hosts: all
+  gather_facts: yes
+  become: true
+  tasks:
+    - name: Download and run tests
+      import_role:
+        name: download_and_run_tests

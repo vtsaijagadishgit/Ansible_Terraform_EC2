@@ -1,0 +1,28 @@
+---
+- name: "Delete the test directory {{ test_directory }} for a clean start"
+  file:
+    path: "{{ test_directory }}"
+    state: absent
+
+- name: "Create the test directory {{ test_directory }}"
+  file:
+    path: "{{ test_directory }}"
+    state: directory
+    mode: 0700
+
+- name: "Git clone cdaas-demo-app project from {{ git_access_protocol }}://{{ git_clone_url }}"
+  command: "git clone -c http.sslVerify=false {{ git_access_protocol }}://{{ git_clone_url }}"
+  args:
+    chdir: "{{ test_directory }}"
+
+#- name: "Git clone cdaas-demo-app project from GitLab"
+#  git:
+#    repo: "{{ git_access_protocol }}://{{ git_project_access_name }}:{{ git_project_access_token }}@{{ git_clone_url }}"
+#    version: master
+#    dest: "{{ test_directory }}"
+#    accept_hostkey: yes
+#    force: yes
+#    depth: 1
+# it looks like accept hostkey is ignored
+# /bin/git ls-remote 'https://cdaas-demo-app:********@levent/cdaas/cdaas-demo-app.git' -h refs/heads/master"
+# Peer's certificate issuer has been marked as not trusted by the user.

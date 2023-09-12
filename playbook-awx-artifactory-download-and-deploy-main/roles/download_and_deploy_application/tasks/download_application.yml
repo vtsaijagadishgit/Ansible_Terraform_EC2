@@ -1,0 +1,22 @@
+---
+
+- name: "Create the application directory {{ application_directory }}"
+  file:
+    path: "{{ application_directory }}"
+    state: directory
+    mode: 0700
+
+- name: "Download {{ ARTIFACTORY_HOSTNAME }}/artifactory/{{ repository_key }}/{{ application_name }}-{{ application_version }}.{{ application_extension }}"
+  get_url:
+    url: "{{ ARTIFACTORY_HOSTNAME }}/artifactory/{{ repository_key }}/{{ application_name }}-{{ application_version }}.{{ application_extension }}"
+    mode: "u+x"
+    use_proxy: "{{ ARTIFACTORY_USE_PROXY }}"
+    validate_certs: "{{ ARTIFACTORY_VALIDATE_CERTIFICATES }}"
+    dest: "{{ application_directory }}"
+    headers:
+       X-JFrog-Art-Api: "{{ ARTIFACTORY_API_TOKEN }}"
+  environment:
+    http_proxy: "{{ ARTIFACTORY_HTTP_PROXY }}"
+    https_proxy: "{{ ARTIFACTORY_HTTPS_PROXY }}"
+  notify:
+    - "Restart application"

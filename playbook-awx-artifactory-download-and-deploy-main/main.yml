@@ -1,0 +1,12 @@
+---
+- name: run all the tasks
+  hosts: all
+  gather_facts: yes
+  become: true
+  tasks:
+    - name: Download and deploy application
+      import_role:
+        name: download_and_deploy_application
+    - name: Download and run cypress tests
+      import_role:
+        name: download_and_run_tests

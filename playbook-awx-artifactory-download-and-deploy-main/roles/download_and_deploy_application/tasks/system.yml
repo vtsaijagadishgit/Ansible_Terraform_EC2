@@ -1,0 +1,14 @@
+---
+
+- name: "Check if javac is installed. Needed to run spring boot application"
+  command: javac -version
+ 
+- name: "Create systemd service file {{ sysd_user_services_folder }}/{{ application_name }}.service"
+  template:
+    src: app.service.j2
+    dest: "{{ sysd_script }}"
+    mode: 0644
+    owner: "root"
+    group: "root"
+  notify:
+    - "Restart application"

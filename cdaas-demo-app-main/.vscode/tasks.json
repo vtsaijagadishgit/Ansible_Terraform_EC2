@@ -1,0 +1,86 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "maven build",
+            "type": "shell",
+            "command": [
+                "${workspaceFolder}/mvnw clean install spring-boot:repackage"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "maven clean",
+            "type": "shell",
+            "command": [
+                "${workspaceFolder}/mvnw clean"
+            ]
+        },
+        {
+            "label": "maven test",
+            "type": "shell",
+            "command": [
+                "${workspaceFolder}/mvnw surefire-report:report"
+            ],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "gatling test",
+            "type": "shell",
+            "command": [
+                "${workspaceFolder}/mvnw gatling:test"
+            ],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "npm install",
+            "type": "shell",
+            "command": [
+                "cd ${workspaceFolder}/src/test/cypress &&",
+                "npm install"
+            ]
+        },
+        {
+            "label": "cypress open",
+            "type": "shell",
+            "command": [
+                "cd ${workspaceFolder}/src/test/cypress &&",
+                "npm run cy:open"
+            ]
+        },
+        {
+            "label": "cypress run",
+            "type": "shell",
+            "command": [
+                "cd ${workspaceFolder}/src/test/cypress &&",
+                "npm run cy:run"
+            ],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "maven run",
+            "type": "shell",
+            "command": [
+                "${workspaceFolder}/mvnw clean spring-boot:run"
+            ],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            }
+        }
+    ]
+}

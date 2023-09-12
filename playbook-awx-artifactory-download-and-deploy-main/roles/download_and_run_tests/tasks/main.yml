@@ -1,0 +1,6 @@
+---
+- name: Download test repository
+  import_tasks: download_repository.yml
+
+- name: Run tests
+  import_tasks: run_tests.yml

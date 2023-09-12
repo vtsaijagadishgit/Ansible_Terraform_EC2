@@ -1,0 +1,11 @@
+[Unit]
+Description={{ application_name }}
+After=syslog.target
+
+[Service]
+User=root
+ExecStart=/bin/java -jar {{ application_directory }}/{{ application_name }}-{{ application_version }}.{{ application_extension }}
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target
