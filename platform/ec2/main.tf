@@ -1,6 +1,6 @@
-resource "aws_instance" "App-Server" {
+resource "aws_instance" "CDAAS-1" {
   ami           = "ami-04e601abe3e1a910f" 
-  instance_type = "t2.micro"            
+  instance_type = "t3.medium"            
 
   vpc_security_group_ids = [aws_security_group.app-server-SG.id]
   subnet_id              = "subnet-38325c52"
@@ -9,7 +9,7 @@ resource "aws_instance" "App-Server" {
   user_data = file("./modules/EC2/userdata.sh")
 
   tags = {
-    Name = "App-server"
+    Name = "CDAAS-1"
   }
 }
 
