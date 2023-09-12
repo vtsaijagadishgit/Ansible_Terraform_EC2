@@ -41,8 +41,8 @@ jobs:
       - name: Export Terraform output
         id: tf
         run: |
-         PUB_IP=$(terraform output -raw CDAAS_instance_ids)
-         echo "PUB_IP=${PUB_IP}" >> $GITHUB_ENV
+          INSTANCES=($(terraform output -json CDAAS_instance_ids))
+          echo "PUB_IP=${INSTANCES[0]}" >> $GITHUB_ENV
         working-directory: ./platform
         
       - name: Delay for 45 seconds
