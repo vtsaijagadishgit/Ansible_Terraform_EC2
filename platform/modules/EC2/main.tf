@@ -1,6 +1,7 @@
-resource "aws_instance" "CDAAS-1" {
+resource "aws_instance" "CDAAS" {
   ami           = "ami-04e601abe3e1a910f" 
-  instance_type = "t3.medium"            
+  instance_type = "t3.medium"
+  count = 2
 
   vpc_security_group_ids = [aws_security_group.app-server-SG.id]
   subnet_id              = "subnet-38325c52"
@@ -9,7 +10,7 @@ resource "aws_instance" "CDAAS-1" {
   user_data = file("./modules/EC2/userdata.sh")
 
   tags = {
-    Name = "CDAAS-1"
+    Name = "CDAAS"
   }
 }
 
@@ -27,8 +28,8 @@ resource "aws_security_group" "app-server-SG" {
   }
 
   ingress {
-    from_port   = 8080
-    to_port     = 8080
+    from_port   = 80
+    to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]   # Allow 8080 access from anywhere
   }
