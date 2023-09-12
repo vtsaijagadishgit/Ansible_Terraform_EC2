@@ -3,7 +3,7 @@ resource "aws_instance" "CDAAS" {
   instance_type = "t3.medium"
   count = 2
 
-  vpc_security_group_ids = [aws_security_group.app-server-SG.id]
+  vpc_security_group_ids = [aws_security_group.CDAAS-SG.id]
   subnet_id              = "subnet-38325c52"
   key_name               = "pfops"
   associate_public_ip_address = true
@@ -16,7 +16,7 @@ resource "aws_instance" "CDAAS" {
 
 resource "aws_security_group" "CDAAS-SG" {
   name        = "CDAAS-SG"
-  description = "Security group for the app-server-SG"
+  description = "Security group for the CDAAS-SG"
 
   vpc_id = "vpc-4b4bcc21"
 
