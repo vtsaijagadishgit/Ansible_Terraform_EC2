@@ -13,5 +13,4 @@ provider "aws" {
 
 module "EC2" {
   source    = "./modules/EC2"
-  instance_count = 2
 }
