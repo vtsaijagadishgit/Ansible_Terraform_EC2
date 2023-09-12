@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket         = "cdaas"
+    bucket         = "cdaas-vfz"
     key            = "terraform.tfstate"
     region         = "eu-central-1"    
     encrypt        = true
