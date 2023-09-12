@@ -14,8 +14,8 @@ resource "aws_instance" "CDAAS" {
   }
 }
 
-resource "aws_security_group" "app-server-SG" {
-  name        = "app-server-SG"
+resource "aws_security_group" "CDAAS-SG" {
+  name        = "CDAAS-SG"
   description = "Security group for the app-server-SG"
 
   vpc_id = "vpc-4b4bcc21"
