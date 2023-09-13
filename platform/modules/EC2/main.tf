@@ -10,7 +10,7 @@ resource "aws_instance" "CDAAS" {
   user_data = file("./modules/EC2/userdata.sh")
 
   tags = {
-    Name = "CDAAS"
+    Name = "${count.index == 0 ? "Master" : "Worker"}"
   }
 }
 
