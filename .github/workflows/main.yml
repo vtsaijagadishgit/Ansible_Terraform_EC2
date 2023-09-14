@@ -14,10 +14,10 @@ jobs:
       uses: actions/checkout@v2
       
     - name: Set up Ansible
-      uses: ansible/ansible-action@v2
+      uses: ansible/setup-ansible@v2
       with:
-        version: 2.15.2
-        
+        ansible-version: 2.15.2
+
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
