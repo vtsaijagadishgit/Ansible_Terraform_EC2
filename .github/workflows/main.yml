@@ -16,7 +16,7 @@ jobs:
     - name: Set up Ansible
       uses: ansible/ansible-action@v2
       with:
-        version: 2.11.5
+        version: 2.15.2
         
     - name: Set up Python
       uses: actions/setup-python@v2
