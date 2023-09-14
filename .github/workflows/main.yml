@@ -21,8 +21,10 @@ jobs:
         aws-region: ${{ secrets.AWS_REGION }}
         
     - name: Run Ansible EC2 Playbook
-      run: |
-        ec2.yml
-        gitlab_install.yml
-        gitlab_install.yml
-      working-directory: ./ansible
+      run: ansible-playbook ansible/ec2.yml
+
+    - name: Run Ansible EC2 Playbook
+      run: ansible-playbook ansible/gitlab_install.yml
+
+    - name: Run Ansible EC2 Playbook
+      run: ansible-playbook ansible/gitlab_runner.yml
