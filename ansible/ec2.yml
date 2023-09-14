@@ -4,7 +4,7 @@
   gather_facts: no
   tasks:
     - name: Launch EC2 Instances
-      ec2:
+      community.aws.ec2:
         key_name: pfops
         instance_type: t2.micro
         image: ami-04e601abe3e1a910f
