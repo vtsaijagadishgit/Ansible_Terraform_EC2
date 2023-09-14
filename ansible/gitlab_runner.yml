@@ -1,0 +1,27 @@
+- name: Install GitLab Runner
+  hosts: runner-instance
+  become: yes
+  tasks:
+    - name: Add GitLab Runner repository
+      apt_repository:
+        repo: "deb https://packages.gitlab.com/runner/gitlab-runner/ubuntu/ focal main"
+        state: present
+
+    - name: Add GitLab Runner GPG key
+      apt_key:
+        url: https://packages.gitlab.com/runner/gitlab-runner/gpgkey
+        state: present
+
+    - name: Install GitLab Runner
+      apt:
+        name: gitlab-runner
+        state: present
+
+    - name: Register Runner
+      command: >
+        gitlab-runner register
+        --non-interactive
+        --url "https://gitlab.example.com/"
+        --registration-token "YOUR_REGISTRATION_TOKEN"
+        --executor docker
+        --docker-image "docker:latest"
