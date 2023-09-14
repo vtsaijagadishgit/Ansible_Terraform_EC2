@@ -17,11 +17,19 @@
         name: gitlab-runner
         state: present
 
+    - name: Get GitLab URL
+      command: "./ansible/aws_ec2.yml"
+      register: gitlab_url
+      
+    - name: Get Registration Token
+      command: "grep registration_token /etc/gitlab/gitlab.rb | awk '{print $2}'"
+      register: registration_token
+
     - name: Register Runner
       command: >
         gitlab-runner register
         --non-interactive
-        --url "https://gitlab.example.com/"
+        --url "{{ gitlab_url.stdout }}"
         --registration-token "YOUR_REGISTRATION_TOKEN"
         --executor docker
         --docker-image "docker:latest"
