@@ -24,7 +24,7 @@ jobs:
       run: ec2.yml
 
     - name: Run Gitlab Install Playbook
-      run: ansible-playbook cleanup.yml
+      run: gitlab_install.yml
       
-    - name: Run Gitlab Install Playbook
-      run: ansible-playbook cleanup.yml
+    - name: Run Gitlab Runner Playbook
+      run: gitlab_install.yml
