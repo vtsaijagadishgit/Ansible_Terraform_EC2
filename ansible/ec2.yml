@@ -1,4 +1,4 @@
-- name: Provision EC2 Instances
+- name: Launch EC2 Instances
   hosts: localhost
   gather_facts: no
   tasks:
