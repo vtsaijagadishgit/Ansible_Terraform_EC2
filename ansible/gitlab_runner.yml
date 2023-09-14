@@ -18,7 +18,7 @@
         state: present
 
     - name: Get GitLab URL
-      command: "./ansible/aws_ec2.yml"
+      command: "./ansible/aws_ec2_fetch.yml"
       register: gitlab_url
       
     - name: Get Registration Token
