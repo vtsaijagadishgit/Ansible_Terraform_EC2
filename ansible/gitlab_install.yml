@@ -1,0 +1,26 @@
+# gitlab_install.yml
+- name: Install GitLab
+  hosts: gitlab-instance
+  become: yes
+  tasks:
+    - name: Add GitLab repository
+      apt_repository:
+        repo: "deb https://packages.gitlab.com/gitlab/gitlab-ee/ubuntu/ focal main"
+        state: present
+
+    - name: Add GitLab GPG key
+      apt_key:
+        url: https://packages.gitlab.com/gpg.key
+        state: present
+
+    - name: Install GitLab
+      apt:
+        name: gitlab-ce
+        state: present
+
+    - name: Configure GitLab
+      template:
+        src: gitlab.rb.j2
+        dest: /etc/gitlab/gitlab.rb
+      notify:
+        - restart gitlab
