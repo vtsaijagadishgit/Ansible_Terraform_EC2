@@ -3,7 +3,7 @@
   hosts: localhost
   gather_facts: no
   tasks:
-    - name: Launch EC2 Instances:
+    - name: Launch EC2 Instances
       amazon.aws.ec2:
         key_name: pfops
         instance_type: t2.micro
