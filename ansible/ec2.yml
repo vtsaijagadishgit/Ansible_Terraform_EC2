@@ -2,24 +2,26 @@
 - name: Launch EC2 Instances
   hosts: localhost
   gather_facts: no
-  tasks:
-    - name: Launch EC2 Instances
-      amazon.aws.ec2:
-        key_name: pfops
-        instance_type: t2.micro
-        image: ami-04e601abe3e1a910f
-        region: eu-central-1
-        vpc_subnet_id: subnet-38325c52
-        group: sg-0405acf0e36e7984d
-        count: 2
-        wait: yes
-        assign_public_ip: yes
-        instance_tags:
-          Name: "{{ item }}"
-      with_items:
-        - gitlab-instance
-        - runner-instance
-      register: ec2
+  - name: Create EC2 Block
+    block: 
+      - name: Launch ec2 instances
+        tags: create_ec2
+        ec2:
+          key_name: pfops
+          instance_type: t2.micro
+          image: ami-04e601abe3e1a910f
+          region: eu-central-1
+          vpc_subnet_id: subnet-38325c52
+          group: sg-0405acf0e36e7984d
+          count: 2
+          wait: yes
+          assign_public_ip: yes
+          instance_tags:
+            Name: "{{ item }}"
+        with_items:
+          - gitlab-instance
+          - runner-instance
+        register: ec2
     - name: Add EC2 instances to host group
       add_host:
         name: "{{ item.instance.public_ip }}"
