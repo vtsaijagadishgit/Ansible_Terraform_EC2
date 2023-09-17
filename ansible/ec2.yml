@@ -1,29 +1,48 @@
 ---
-- name: Launch EC2 Instances
+- name: Create EC2 Instances
   hosts: localhost
-  gather_facts: no
-  - name: Create EC2 Block
-    block: 
-      - name: Launch ec2 instances
-        tags: create_ec2
-        ec2:
-          key_name: pfops
-          instance_type: t2.micro
-          image: ami-04e601abe3e1a910f
-          region: eu-central-1
-          vpc_subnet_id: subnet-38325c52
-          group: sg-0405acf0e36e7984d
-          count: 2
-          wait: yes
-          assign_public_ip: yes
-          instance_tags:
-            Name: "{{ item }}"
-        with_items:
-          - gitlab-instance
-          - runner-instance
-        register: ec2
-    - name: Add EC2 instances to host group
+  gather_facts: False
+  tasks:
+    - name: Launch EC2 Instances 1
+      ec2_instance:
+        key_name: cdaas
+        instance_type: t3.medium
+        image_id: ami-04e601abe3e1a910f
+        region: eu-central-1
+        security_group: sg-0405acf0e36e7984d
+        count: 1
+        tags:
+          Name: gitlab-master
+        wait: yes
+      register: ec2_master
+
+    - name: Launch EC2 Instances 2
+      ec2_instance:
+        key_name: cdaas
+        instance_type: t3.medium
+        image_id: ami-04e601abe3e1a910f
+        region: eu-central-1
+        security_group: sg-0405acf0e36e7984d
+        count: 1
+        tags:
+          Name: gitlab-runner
+        wait: yes
+      register: ec2_runner
+
+    - name: Add new instances to host group
       add_host:
-        name: "{{ item.instance.public_ip }}"
-        groups: "{{ item.item }}"
-      with_items: "{{ ec2.results }}"
+        name: "{{ item.public_ip }}"
+        groups: launched
+      with_items: "{{ ec2_master.instances + ec2_runner.instances }}"
+
+- name: Wait for SSH to be available
+  hosts: launched
+  become: yes
+  become_user: ubuntu
+  tasks:
+    - name: Wait for SSH to be available
+      wait_for:
+        port: 22
+        host: "{{ inventory_hostname }}"
+        delay: 60
+        timeout: 600
