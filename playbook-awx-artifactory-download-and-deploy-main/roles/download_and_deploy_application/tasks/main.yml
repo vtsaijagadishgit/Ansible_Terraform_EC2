@@ -1,5 +1,0 @@
----
-- name: Download application
-  import_tasks: download_application.yml
-- name: Deploy application
-  import_tasks: system.yml
