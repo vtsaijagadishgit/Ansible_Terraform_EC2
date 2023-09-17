@@ -30,6 +30,6 @@
         gitlab-runner register
         --non-interactive
         --url "{{ gitlab_url.stdout }}"
-        --registration-token "YOUR_REGISTRATION_TOKEN"
+        --registration-token "Yglrt-72jw1BVd8bw4zMEWyDSH"
         --executor docker
         --docker-image "docker:latest"
